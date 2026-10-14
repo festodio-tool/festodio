@@ -53,16 +53,60 @@ def logout():
 @app.route("/api/status")
 @login_required
 def status():
-    q = engine.queue_state()["counts"]
+    qs = engine.queue_state()
+    q = qs["counts"]
+    jobs = qs.get("jobs", [])
+    # normalize job fields for frontend
+    norm_jobs = []
+    for j in jobs:
+        st = j.get("status", "pending")
+        if st in ("queued",): st = "pending"
+        if st in ("active",): st = "processing"
+        norm_jobs.append({
+            "n": j.get("id", "?")[-4:] if isinstance(j.get("id"), str) else j.get("n", "?"),
+            "prompt": j.get("prompt", ""),
+            "account": j.get("account", "-"),
+            "status": st,
+            "progress": j.get("progress", j.get("msg", "")),
+        })
     accs = engine.list_accounts()
     live = sum(1 for a in accs if a["status"] == "live")
     return jsonify({
         "running": engine.running,
         "queue": q,
+        "saved": q.get("done", 0),
+        "active": q.get("active", 0),
+        "failed": q.get("failed", 0),
+        "pending": q.get("queued", 0),
+        "jobs": norm_jobs,
         "accounts_total": len(accs),
         "accounts_live": live,
         "settings": engine.settings,
     })
+
+
+@app.route("/api/batch", methods=["POST"])
+@login_required
+def batch_compat():
+    data = request.get_json(force=True, silent=True) or {}
+    prompts = data.get("prompts", [])
+    settings = data.get("settings", {})
+    if prompts:
+        engine.add_prompts(prompts)
+    return jsonify(engine.start(settings))
+
+
+@app.route("/api/batch/stop", methods=["POST"])
+@login_required
+def batch_stop_compat():
+    return jsonify(engine.stop())
+
+
+@app.route("/api/accounts/check", methods=["POST"])
+@login_required
+def account_check_compat():
+    threading.Thread(target=engine.check_all_accounts, daemon=True).start()
+    return jsonify({"ok": True, "message": "checking all..."})
 
 
 # ------------------------------------------------------------ prompts / batch
@@ -119,7 +163,7 @@ def jobs_clear():
 @app.route("/api/accounts")
 @login_required
 def accounts():
-    return jsonify(engine.list_accounts())
+    return jsonify({"accounts": engine.list_accounts(), "ok": True})
 
 
 @app.route("/api/accounts", methods=["POST"])
@@ -162,9 +206,20 @@ def account_check_all():
 @login_required
 def skill_download():
     return send_file(
-        os.path.join(SKILLS, "kartar-seedance-30s-SKILL.md"),
+        os.path.join(SKILLS, "kartar2-5-skill.md"),
         as_attachment=True,
-        download_name="kartar-seedance-30s-SKILL.md")
+        download_name="kartar2-5-skill.md")
+
+
+@app.route("/api/skill/list")
+@login_required
+def skill_list():
+    files = []
+    if os.path.isdir(SKILLS):
+        for f in sorted(os.listdir(SKILLS)):
+            if f.endswith(".md"):
+                files.append(f)
+    return jsonify({"ok": True, "skills": files})
 
 
 # ------------------------------------------------------------ logs / videos

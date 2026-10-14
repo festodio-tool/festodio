@@ -2,254 +2,212 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Festodio — Seedance 2.5 Batch Video Automation</title>
-<meta name="description" content="Festodio — batch generate Seedance 2.5 AI videos with multiple accounts, auto-retry, and 30-second skill support.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festodio Studio v2 — Seedance 2.5 Video Automation</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0f0d1a;--card:#1a1630;--acc:#7c5cff;--acc2:#a78bfa;--ok:#22c55e;--err:#ef4444;--warn:#f59e0b;--txt:#e8e6f0;--mut:#9a94b8}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding-bottom:80px}
-header{background:linear-gradient(135deg,#2a1f5c,#1a1630);padding:18px 16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #2d2650}
-header h1{font-size:22px;display:flex;align-items:center;gap:8px}
-header h1 .logo{font-size:26px}
-header p{color:var(--mut);font-size:12px;margin-top:4px}
-.ver{background:var(--acc);font-size:10px;padding:2px 8px;border-radius:10px;margin-left:6px}
-main{max-width:640px;margin:0 auto;padding:14px}
-.card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:14px;border:1px solid #2d2650}
-.card h3{font-size:15px;margin-bottom:10px;color:var(--acc2)}
-label{display:block;font-size:12px;color:var(--mut);margin:8px 0 4px}
-input,textarea,select{width:100%;background:#121024;border:1px solid #2d2650;color:var(--txt);border-radius:10px;padding:10px;font-size:14px}
-textarea{min-height:110px;resize:vertical;font-family:inherit}
-.btn{display:block;width:100%;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;color:#fff}
-.btn-start{background:linear-gradient(135deg,#7c5cff,#5b3df5)}
-.btn-stop{background:linear-gradient(135deg,#ef4444,#dc2626)}
-.btn-blue{background:linear-gradient(135deg,#3b82f6,#2563eb)}
-.btn-ghost{background:#25204a;color:var(--txt)}
-.btn-sm{width:auto;display:inline-block;padding:8px 14px;font-size:13px;margin:4px 4px 0 0}
-.hint{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.5}
-.row{display:flex;gap:8px}
-.row>*{flex:1}
-.tabs{position:fixed;bottom:0;left:0;right:0;background:#151230;display:flex;border-top:1px solid #2d2650;z-index:10}
-.tabs button{flex:1;background:none;border:none;color:var(--mut);padding:10px 4px;font-size:11px;cursor:pointer}
-.tabs button .ic{font-size:20px;display:block;margin-bottom:2px}
-.tabs button.on{color:var(--acc2)}
-.tab{display:none}
-.tab.on{display:block}
-.badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700}
-.b-live{background:#052e16;color:#4ade80}
-.b-dead{background:#3f1d1d;color:#f87171}
-.b-q{background:#3a2f10;color:#fbbf24}
-.b-act{background:#1e2a5c;color:#93c5fd}
-.b-done{background:#052e16;color:#4ade80}
-.b-fail{background:#3f1d1d;color:#f87171}
-.job{background:#121024;border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px}
-.job .jp{margin-bottom:6px;line-height:1.4}
-.job .jm{font-size:11px;color:var(--mut)}
-.logbox{background:#0a0918;border-radius:10px;padding:10px;font-family:monospace;font-size:11.5px;max-height:380px;overflow-y:auto;line-height:1.6}
-.logbox .e-err{color:#f87171}.logbox .e-warn{color:#fbbf24}.logbox .e-ok{color:#4ade80}
-.kv{display:flex;justify-content:space-between;background:#121024;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:13px}
-.kv b{color:var(--acc2)}
-.acc{background:#121024;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.acc .an{font-weight:700;font-size:14px}
-.acc .ad{font-size:11px;color:var(--mut);margin-top:2px}
-#login-screen{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}
-#login-screen .card{width:100%;max-width:340px;text-align:center}
-#login-screen h2{margin-bottom:6px}
-.vid{background:#121024;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
-video{width:100%;border-radius:10px;margin-top:8px;background:#000}
-details{margin-top:8px;font-size:12px;color:var(--mut)}
-details summary{cursor:pointer;color:var(--acc2)}
-.step{background:#121024;border-radius:10px;padding:12px;margin-bottom:8px;font-size:13px;line-height:1.6}
-.step b{color:var(--acc2)}
+:root{--bg:#0b0e1a;--bg2:#10142a;--card:#151a38;--card2:#1a2044;--acc:#7c5cff;--acc2:#a78bfa;--ok:#22c55e;--err:#ef4444;--warn:#f59e0b;--txt:#e8e6f0;--mut:#9a94b8;--brd:#2a3060}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.app{display:flex;min-height:100vh}
+.sidebar{width:210px;background:var(--bg2);border-right:1px solid var(--brd);padding:18px 12px;position:sticky;top:0;height:100vh;flex-shrink:0}
+.logo{font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;padding:0 8px 4px}
+.logo .ver{background:var(--acc);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+.logo-sub{font-size:11px;color:var(--mut);padding:0 8px 16px}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{background:none;border:none;color:var(--mut);text-align:left;padding:10px 12px;border-radius:10px;font-size:14px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.nav button:hover{background:var(--card)}
+.nav button.active{background:linear-gradient(135deg,#7c5cff33,#7c5cff11);color:var(--txt);border:1px solid #7c5cff44}
+.license-badge{margin-top:24px;background:#052e16;border:1px solid #16a34a44;border-radius:10px;padding:10px;font-size:12px;color:#4ade80}
+.main{flex:1;padding:20px;max-width:1200px}
+.topbar{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.pill{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:8px 14px;font-size:13px;display:flex;gap:8px;align-items:center}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.btn{background:var(--acc);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:var(--card);border:1px solid var(--brd);color:var(--txt)}
+.btn.danger{background:var(--err)}
+.btn.small{padding:6px 12px;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:16px;margin-bottom:16px}
+.card h3{font-size:14px;margin-bottom:12px;color:var(--acc2);display:flex;align-items:center;gap:8px}
+textarea,input[type=text],input[type=number],select{background:var(--bg);border:1px solid var(--brd);color:var(--txt);border-radius:10px;padding:10px;font-size:13px;width:100%}
+textarea{min-height:120px;resize:vertical;font-family:inherit}
+label{font-size:12px;color:var(--mut);display:block;margin:10px 0 4px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;color:var(--mut);font-weight:600;padding:8px;border-bottom:1px solid var(--brd);font-size:11px;text-transform:uppercase}
+td{padding:8px;border-bottom:1px solid #1e2450;vertical-align:middle}
+.status{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.st-pending{background:#f59e0b22;color:var(--warn)}
+.st-processing{background:#3b82f622;color:#60a5fa}
+.st-done{background:#22c55e22;color:var(--ok)}
+.st-failed{background:#ef444422;color:var(--err)}
+.st-submitted{background:#a78bfa22;color:var(--acc2)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:14px;text-align:center}
+.stat .n{font-size:24px;font-weight:800}
+.stat .l{font-size:11px;color:var(--mut);margin-top:4px}
+#logs{background:#05070f;border:1px solid var(--brd);border-radius:10px;padding:12px;height:180px;overflow-y:auto;font-family:monospace;font-size:11px;line-height:1.6}
+#logs .t{color:var(--mut)}
+#logs .info{color:var(--txt)} #logs .ok{color:var(--ok)} #logs .err{color:var(--err)} #logs .warn{color:var(--warn)}
+.tab{display:none} .tab.active{display:block}
+.toggle{position:relative;width:40px;height:22px;background:#2a3060;border-radius:20px;cursor:pointer;transition:.2s;flex-shrink:0}
+.toggle.on{background:var(--acc)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}
+.toggle.on::after{left:21px}
+.setrow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1e2450;font-size:13px}
+.acct{background:var(--card2);border:1px solid var(--brd);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.acct .nm{font-weight:600;font-size:13px}
+.acct .meta{font-size:11px;color:var(--mut)}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.sidebar{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-
-<div id="login-screen">
-  <div class="card">
-    <h2>🎬 Festodio</h2>
-    <p class="hint">Seedance 2.5 batch video automation</p>
-    <label style="text-align:left">Password</label>
-    <input type="password" id="pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="btn btn-start" onclick="doLogin()">Login</button>
-    <p class="hint" id="login-err"></p>
-  </div>
-</div>
-
-<header>
-  <h1><span class="logo">🎬</span> Festodio <span class="ver">web v1.0</span></h1>
-  <p>Seedance 2.5 batch video automation</p>
-</header>
-
-<main>
-<!-- STUDIO -->
-<div class="tab on" id="tab-studio">
-  <div class="card">
-    <h3>📊 Status</h3>
-    <div class="kv"><span>Batch</span><b id="st-run">-</b></div>
-    <div class="kv"><span>Accounts</span><b id="st-acc">-</b></div>
-    <div class="kv"><span>Queue</span><b id="st-q">-</b></div>
-    <div class="kv"><span>Done / Failed</span><b id="st-df">-</b></div>
-  </div>
-  <div class="card">
-    <h3>✍️ Prompts</h3>
-    <textarea id="prompts" placeholder="Ek line me ek prompt...&#10;&#10;A beautiful sunset over mountains, cinematic...&#10;A cat playing piano, funny..."></textarea>
-    <div class="row">
-      <button class="btn btn-blue" onclick="addPrompts()">➕ Add to Queue</button>
-      <button class="btn btn-ghost" onclick="document.getElementById('txtfile').click()">📄 TXT File</button>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">🎬 Festodio <span class="ver">v2.0</span></div>
+    <div class="logo-sub">Seedance 2.5 Video Automation</div>
+    <nav class="nav">
+      <button class="active" data-tab="studio">🏠 Video Studio</button>
+      <button data-tab="accounts">🍪 Cookie Accounts</button>
+      <button data-tab="videos">🎞️ Previous Videos</button>
+      <button data-tab="settings">⚙️ Settings</button>
+      <button data-tab="logs">📋 Logs</button>
+    </nav>
+    <div class="license-badge">● License active</div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div class="pill"><span class="dot"></span> Direct connection · No proxy</div>
+      <div class="pill">🎬 All-time: <b id="stat-total">0</b> videos saved</div>
+      <div class="pill">🟢 <b id="stat-ready">0</b> accounts ready</div>
     </div>
-    <input type="file" id="txtfile" accept=".txt" style="display:none" onchange="uploadTxt(this)">
-    <div class="row">
-      <div><label>Duration</label>
-        <select id="set-duration"><option value="15">15 sec</option><option value="30" selected>30 sec</option></select></div>
-      <div><label>Ratio</label>
-        <select id="set-ratio"><option value="9:16" selected>9:16</option><option value="16:9">16:9</option><option value="1:1">1:1</option></select></div>
-      <div><label>Parallel</label>
-        <select id="set-parallel"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+    <div class="tab active" id="tab-studio">
+      <div class="stats">
+        <div class="stat"><div class="n" style="color:var(--ok)" id="c-saved">0</div><div class="l">✅ Saved</div></div>
+        <div class="stat"><div class="n" style="color:#60a5fa" id="c-active">0</div><div class="l">▶️ Active</div></div>
+        <div class="stat"><div class="n" style="color:var(--err)" id="c-failed">0</div><div class="l">❌ Failed</div></div>
+        <div class="stat"><div class="n" style="color:var(--warn)" id="c-pending">0</div><div class="l">⏳ Pending</div></div>
+      </div>
+      <div class="grid">
+        <div>
+          <div class="card">
+            <h3>⭐ Video Prompts <span id="prompt-count"></span></h3>
+            <div class="toolbar">
+              <button class="btn small ghost" onclick="document.getElementById('file-in').click()">📄 Import .TXT / .CSV</button>
+              <input type="file" id="file-in" accept=".txt,.csv" style="display:none" onchange="importFile(this)">
+              <button class="btn small ghost" onclick="clearPrompts()">🗑 Clear</button>
+            </div>
+            <textarea id="prompts" placeholder="One video prompt per line..."></textarea>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" onclick="startBatch()">▶ Start Batch Generation</button>
+              <button class="btn danger" onclick="stopBatch()">⏹ Stop</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>📋 Live Batch Queue <span id="queue-info"></span></h3>
+            <div style="overflow-x:auto"><table>
+              <thead><tr><th>#</th><th>Prompt</th><th>Account</th><th>Status</th><th>Output</th></tr></thead>
+              <tbody id="queue-body"><tr><td colspan="5" style="color:var(--mut);text-align:center">No jobs yet.</td></tr></tbody>
+            </table></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>⚙️ Generation Settings</h3>
+            <label>Video Length</label>
+            <div class="row">
+              <button class="btn small ghost" id="len15" onclick="setLen(15)">15 Second</button>
+              <button class="btn small" id="len30" onclick="setLen(30)">30 Second</button>
+            </div>
+            <label>Videos per prompt</label>
+            <input type="number" id="vpp" value="1" min="1" max="5">
+            <label>Aspect Ratio</label>
+            <select id="ratio"><option value="9:16">9:16 Vertical</option><option value="16:9">16:9 Landscape</option><option value="1:1">1:1 Square</option></select>
+            <label>Videos / Chat</label>
+            <select id="vpc"><option value="1">1 Video</option><option value="2">2 Videos</option><option value="3">3 Videos</option></select>
+            <label>Parallel Videos <span id="par-val">3</span></label>
+            <input type="range" id="parallel" min="1" max="8" value="3" style="width:100%" oninput="document.getElementById('par-val').textContent=this.value">
+            <label>Send Threads</label>
+            <input type="number" id="threads" value="8" min="1" max="16">
+            <div style="margin-top:8px;font-size:11px;color:var(--mut)">▶ ADVANCED · <span id="adv-sum">Reuse gap 300 sec · Check every 180 sec</span></div>
+            <div style="margin-top:12px">
+              <div class="setrow"><span>Run live accounts only</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+              <div class="setrow"><span>Batch subfolders</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+              <div class="setrow"><span>Auto-marker</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+              <div class="setrow"><span>Use Proxy</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+            </div>
+            <label style="margin-top:12px">OUTPUT — Save to</label>
+            <input type="text" id="outdir" value="festodio-videos/" readonly>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="btn btn-start" id="btn-start" onclick="startBatch()">🚀 START BATCH GENERATION</button>
-    <button class="btn btn-stop" onclick="stopBatch()">⏹ Stop</button>
-  </div>
-  <div class="card">
-    <h3>🎥 Videos</h3>
-    <div id="vid-list"><p class="hint">No videos yet</p></div>
-  </div>
-</div>
-
-<!-- ACCOUNTS -->
-<div class="tab" id="tab-accounts">
-  <div class="card">
-    <h3>➕ Add Dola Account</h3>
-    <label>Account name</label>
-    <input type="text" id="acc-name" placeholder="e.g. Account 1">
-    <label>Paste cookies (from dola.com)</label>
-    <textarea id="acc-cookies" style="min-height:80px" placeholder="Paste cookies here..."></textarea>
-    <button class="btn btn-blue" onclick="addAccount()">Add Account</button>
-    <p class="hint">💡 <b>Cookie kese nikalein:</b> dola.com pe login karo → browser ke dev tools (F12) → Application → Cookies → copy karo. Ya koi cookie-exporter extension use karo.</p>
-  </div>
-  <div class="card">
-    <h3>📄 30-Second Skill</h3>
-    <p class="hint"><b>30s videos ke liye zaroori!</b> Neeche button se SKILL.md download karo, phir <b>dola.com/chat/skills</b> pe jao → <b>+ Add</b> → <b>Upload Skill</b> → file select karo.</p>
-    <button class="btn btn-blue" onclick="downloadSkill()">📥 Download SKILL.md</button>
-    <button class="btn btn-ghost" onclick="window.open('https://www.dola.com/chat/skills','_blank')">🌐 Open dola.com/chat/skills</button>
-  </div>
-  <div class="card">
-    <h3>👥 Accounts</h3>
-    <button class="btn btn-ghost btn-sm" onclick="checkAll()">🔄 Check All</button>
-    <div id="acc-list" style="margin-top:10px"></div>
-  </div>
-</div>
-
-<!-- QUEUE -->
-<div class="tab" id="tab-queue">
-  <div class="card">
-    <h3>📋 Queue</h3>
-    <button class="btn btn-ghost btn-sm" onclick="clearJobs('done')">Clear done/failed</button>
-    <button class="btn btn-ghost btn-sm" onclick="clearJobs('all')">Clear all</button>
-    <div id="job-list" style="margin-top:10px"></div>
-  </div>
-</div>
-
-<!-- LOGS -->
-<div class="tab" id="tab-logs">
-  <div class="card">
-    <h3>📝 Logs</h3>
-    <div class="logbox" id="logs"></div>
+    <div class="tab" id="tab-accounts">
+      <div class="card">
+        <h3>🍪 Cookie Accounts <span id="acct-count"></span></h3>
+        <label>Paste cookies (Cookie-Editor JSON, Netscape, or raw header)</label>
+        <textarea id="cookie-in" style="min-height:80px" placeholder='[{"name":"sessionid","value":"..."}]'></textarea>
+        <label>Account name</label>
+        <input type="text" id="acct-name" placeholder="e.g. Account 1">
+        <div class="row" style="margin-top:10px">
+          <button class="btn" onclick="addAccount()">➕ Add Account</button>
+          <button class="btn ghost" onclick="checkAccounts()">🔄 Check All</button>
+        </div>
+      </div>
+      <div class="card"><h3>Accounts</h3><div id="acct-list"><p style="color:var(--mut)">No accounts yet.</p></div></div>
+    </div>
+    <div class="tab" id="tab-videos">
+      <div class="card">
+        <h3>🎞️ Previous Videos</h3>
+        <div id="video-list"><p style="color:var(--mut)">No videos yet.</p></div>
+      </div>
+    </div>
+    <div class="tab" id="tab-settings">
+      <div class="card">
+        <h3>⚙️ Settings</h3>
+        <label>Reuse gap (seconds between same account)</label>
+        <input type="number" id="reuse-gap" value="300" onchange="document.getElementById('adv-sum').textContent=`Reuse gap ${this.value} sec · Check every ${document.getElementById('check-int').value} sec`">
+        <label>Check interval (seconds)</label>
+        <input type="number" id="check-int" value="180" onchange="document.getElementById('adv-sum').textContent=`Reuse gap ${document.getElementById('reuse-gap').value} sec · Check every ${this.value} sec`">
+      </div>
+    </div>
+    <div class="tab" id="tab-logs">
+      <div class="card">
+        <h3>📋 Live Logs</h3>
+        <div class="toolbar">
+          <button class="btn small ghost" onclick="copyLogs()">📋 Copy</button>
+          <button class="btn small ghost" onclick="clearLogs()">🗑 Clear</button>
+        </div>
+        <div id="logs"></div>
+      </div>
+    </div>
   </div>
 </div>
-</main>
-
-<nav class="tabs">
-  <button class="on" onclick="showTab('studio',this)"><span class="ic">🎬</span>Studio</button>
-  <button onclick="showTab('accounts',this)"><span class="ic">🍪</span>Accounts</button>
-  <button onclick="showTab('queue',this)"><span class="ic">📋</span>Queue</button>
-  <button onclick="showTab('logs',this)"><span class="ic">📝</span>Logs</button>
-</nav>
-
 <script>
-async function api(p,m,b){
-  const o={method:m||'GET',headers:{'Content-Type':'application/json'}};
-  if(b)o.body=JSON.stringify(b);
-  const r=await fetch(p,o);
-  if(r.status===401){document.getElementById('login-screen').style.display='flex';return{};}
-  return r.json();
-}
-async function doLogin(){
-  const r=await api('/login','POST',{password:document.getElementById('pw').value});
-  if(r.ok){document.getElementById('login-screen').style.display='none';refresh();}
-  else document.getElementById('login-err').textContent=r.msg||'Failed';
-}
-function showTab(id,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  document.getElementById('tab-'+id).classList.add('on');
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  refresh();
-}
-async function refresh(){
-  const s=await api('/api/status');
-  if(!s.queue)return;
-  document.getElementById('st-run').textContent=s.running?'🟢 Running':'⚪ Idle';
-  document.getElementById('st-acc').textContent=s.accounts_live+'/'+s.accounts_total+' live';
-  document.getElementById('st-q').textContent=s.queue.queued+' queued, '+s.queue.active+' active';
-  document.getElementById('st-df').textContent=s.queue.done+' / '+s.queue.failed;
-  document.getElementById('btn-start').textContent=s.running?'🟢 RUNNING...':'🚀 START BATCH GENERATION';
-  // accounts
-  const accs=await api('/api/accounts');
-  document.getElementById('acc-list').innerHTML=accs.map(a=>
-    `<div class="acc"><div><div class="an">${a.name}</div><div class="ad">${a.detail||''} · uses: ${a.uses}</div></div>
-    <div><span class="badge ${a.status==='live'?'b-live':'b-dead'}">${a.status==='live'?'LIVE':'?/DEAD'}</span><br>
-    <button class="btn btn-ghost btn-sm" onclick="checkAcc('${a.id}')">Check</button>
-    <button class="btn btn-ghost btn-sm" onclick="delAcc('${a.id}')">✕</button></div></div>`).join('')||'<p class="hint">No accounts</p>';
-  // queue
-  const q=await api('/api/queue');
-  const bc={queued:'b-q',active:'b-act',done:'b-done',failed:'b-fail'};
-  document.getElementById('job-list').innerHTML=q.jobs.map(j=>
-    `<div class="job"><div class="jp">${j.prompt.slice(0,120)}</div>
-    <span class="badge ${bc[j.status]||'b-q'}">${j.status}</span>
-    <span class="jm">${j.account||''} ${j.file?'· 🎥 '+j.file:''} ${j.error?'· ⚠️ '+j.error.slice(0,80):''}</span></div>`).join('')||'<p class="hint">Queue empty</p>';
-  // logs
-  const logs=await api('/api/logs');
-  document.getElementById('logs').innerHTML=logs.map(l=>
-    `<div class="e-${l.level}">[${l.t}] ${l.msg}</div>`).join('');
-  const lb=document.getElementById('logs');lb.scrollTop=lb.scrollHeight;
-  // videos
-  const vs=await api('/api/videos');
-  document.getElementById('vid-list').innerHTML=vs.map(v=>
-    `<div class="vid"><span>🎥 ${v.name}<br><small style="color:var(--mut)">${v.mb} MB</small></span>
-    <span><button class="btn btn-blue btn-sm" onclick="playVid('${v.name}')">▶</button>
-    <a class="btn btn-ghost btn-sm" style="text-decoration:none" href="/videos/${v.name}" download>⬇</a></span></div>
-    <video id="vp-${v.name}" style="display:none" controls preload="none"><source src="/videos/${v.name}"></video>`).join('')||'<p class="hint">No videos yet</p>';
-}
-function playVid(n){const v=document.getElementById('vp-'+n);v.style.display=v.style.display==='none'?'block':'none';if(v.style.display==='block')v.play();else v.pause();}
-async function addPrompts(){
-  const t=document.getElementById('prompts').value;
-  if(!t.trim()){alert('Pehle prompts likho!');return;}
-  const r=await api('/api/prompts','POST',{text:t});
-  alert(r.queued+' jobs queued ✓');document.getElementById('prompts').value='';refresh();
-}
-async function uploadTxt(inp){
-  const fd=new FormData();fd.append('file',inp.files[0]);
-  const r=await fetch('/api/prompts/file',{method:'POST',body:fd}).then(r=>r.json());
-  alert(r.queued+' jobs queued ✓');inp.value='';refresh();
-}
-async function startBatch(){
-  const r=await api('/api/batch/start','POST',{duration:+document.getElementById('set-duration').value,ratio:document.getElementById('set-ratio').value,parallel:+document.getElementById('set-parallel').value});
-  if(!r.ok)alert(r.msg);refresh();
-}
-async function stopBatch(){await api('/api/batch/stop','POST',{});refresh();}
-async function addAccount(){
-  const r=await api('/api/accounts','POST',{name:document.getElementById('acc-name').value,cookies:document.getElementById('acc-cookies').value,region:'US'});
-  if(!r.ok){alert(r.msg);return;}
-  document.getElementById('acc-cookies').value='';checkAcc(r.account.id);refresh();
-}
-async function delAcc(id){if(confirm('Delete?')){await api('/api/accounts/'+id,'DELETE');refresh();}}
-async function checkAcc(id){await api('/api/accounts/'+id+'/check','POST',{});setTimeout(refresh,3000);}
-async function checkAll(){await api('/api/accounts/check-all','POST',{});setTimeout(refresh,5000);}
-async function clearJobs(w){await api('/api/jobs/clear','POST',{which:w});refresh();}
-function downloadSkill(){window.location='/api/skill/download';}
-setInterval(()=>{if(document.getElementById('login-screen').style.display!=='flex')refresh();},5000);
-refresh();
+const API='';let settings={duration:30,ratio:'9:16',parallel:3,vpp:1};
+function tab(n){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+n).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===n));}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+function setLen(s){settings.duration=s;document.getElementById('len15').className='btn small'+(s===15?'':' ghost');document.getElementById('len30').className='btn small'+(s===30?'':' ghost');}
+function clearPrompts(){document.getElementById('prompts').value='';updCount();}
+function updCount(){const n=document.getElementById('prompts').value.split('\n').filter(l=>l.trim()).length;document.getElementById('prompt-count').textContent=n?`(${n} prompts)`:'';}
+document.getElementById('prompts').addEventListener('input',updCount);
+function importFile(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{document.getElementById('prompts').value+=(document.getElementById('prompts').value?'\n':'')+r.result;updCount();log('Imported '+f.name,'ok')};r.readAsText(f);el.value='';}
+async function api(p,m='GET',b){const o={method:m,headers:{'Content-Type':'application/json'}};if(b)o.body=JSON.stringify(b);const r=await fetch(API+p,o);return r.json();}
+function log(msg,level='info'){const d=document.getElementById('logs');const t=new Date().toLocaleTimeString();d.innerHTML+=`<div><span class="t">[${t}]</span> <span class="${level}">${msg}</span></div>`;d.scrollTop=d.scrollHeight;}
+function copyLogs(){navigator.clipboard.writeText(document.getElementById('logs').innerText);}
+function clearLogs(){document.getElementById('logs').innerHTML='';}
+async function addAccount(){const c=document.getElementById('cookie-in').value.trim();const n=document.getElementById('acct-name').value.trim()||'Account '+(Date.now()%10000);if(!c)return log('Paste cookies first!','err');const r=await api('/api/accounts','POST',{name:n,cookies:c});if(r.ok){log('Account added: '+n,'ok');document.getElementById('cookie-in').value='';document.getElementById('acct-name').value='';loadAccounts();}else log('Failed: '+(r.error||'?'),'err');}
+async function loadAccounts(){const d=await api('/api/accounts');const list=document.getElementById('acct-list');document.getElementById('acct-count').textContent=d.accounts&&d.accounts.length?`(${d.accounts.length})`:'';document.getElementById('stat-ready').textContent=(d.accounts||[]).filter(a=>a.status==='live').length;if(!d.accounts||!d.accounts.length){list.innerHTML='<p style="color:var(--mut)">No accounts yet.</p>';return;}list.innerHTML=d.accounts.map(a=>`<div class="acct"><div><div class="nm">🍪 ${a.name}</div><div class="meta">${a.status} · ${a.videos||0} videos</div></div><button class="btn small danger" onclick="delAccount('${a.id}')">Remove</button></div>`).join('');}
+async function delAccount(id){await api('/api/accounts/'+id,'DELETE');loadAccounts();}
+async function checkAccounts(){log('Checking accounts...');const d=await api('/api/accounts/check','POST');log(d.message||'Check complete',d.ok?'ok':'warn');loadAccounts();}
+async function startBatch(){const prompts=document.getElementById('prompts').value.split('\n').map(s=>s.trim()).filter(Boolean);if(!prompts.length)return log('Add prompts first!','err');settings.parallel=+document.getElementById('parallel').value;settings.vpp=+document.getElementById('vpp').value||1;settings.ratio=document.getElementById('ratio').value;const r=await api('/api/batch','POST',{prompts,settings});if(r.ok)log(`Batch started: ${prompts.length} prompts`,'ok');else log('Failed: '+(r.error||'?'),'err');}
+async function stopBatch(){await api('/api/batch/stop','POST');log('Batch stopped','warn');}
+function downloadSkill(){window.open(API+'/api/skill/download','_blank');log('Skill file downloading...','ok');}
+async function refresh(){try{const s=await api('/api/status');document.getElementById('c-saved').textContent=s.saved||0;document.getElementById('c-active').textContent=s.active||0;document.getElementById('c-failed').textContent=s.failed||0;document.getElementById('c-pending').textContent=s.pending||0;document.getElementById('stat-total').textContent=s.saved||0;const q=document.getElementById('queue-body');if(s.jobs&&s.jobs.length){q.innerHTML=s.jobs.slice(-15).reverse().map(j=>`<tr><td>#${j.n}</td><td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(j.prompt||'').slice(0,60)}</td><td>${j.account||'-'}</td><td><span class="status st-${j.status}">${j.status}</span></td><td style="font-size:11px;color:var(--mut)">${j.progress||''}</td></tr>`).join('');document.getElementById('queue-info').textContent=`(${s.jobs.length})`;}}catch(e){}}
+setInterval(refresh,3000);loadAccounts();loadVideos();refresh();log('Festodio Studio v2 ready 🎬','ok');
+async function loadVideos(){try{const d=await api('/api/videos');const el=document.getElementById('video-list');if(!d.length){el.innerHTML='<p style="color:var(--mut)">No videos yet.</p>';return;}el.innerHTML=d.map(v=>`<div class="acct"><div><div class="nm">🎬 ${v.name}</div><div class="meta">${v.mb} MB</div></div><a class="btn small" href="/videos/${v.name}" download>⬇️ Download</a></div>`).join('');}catch(e){}}
 </script>
 </body>
 </html>
